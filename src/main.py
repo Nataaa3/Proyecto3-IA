@@ -64,6 +64,18 @@ def run_example_from_class(data_dir="data"):
     for k, v in query.items():
         print(f"P(maintenance={k} | train=delayed, rain=heavy) = {v:.4f}")
 
+    # Caso de inferencia 4: P(appointment=miss | rain=light, maintenance=no, train=delayed)
+    print("\n\nCASO 4: P(appointment=miss | rain=light, maintenance=no, train=delayed)")
+    evidence = {"appointment": "miss", "rain": "light", "maintenance": "no", "train": "delayed"}
+    query, trace = enumeration_ask(evidence, bn, debug=True)
+
+    print("\nTraza de la inferencia:")
+    print(trace)
+
+    print("\nResultado:")
+    for k, v in query.items():
+        print(f"P(appointment={k} | rain=light, maintenance=no, train=delayed) = {v:.4f}")
+
 def run_custom_example(data_dir="data_custom"):
     """
     Ejecuta el ejemplo personalizado con al menos 6 variables.
