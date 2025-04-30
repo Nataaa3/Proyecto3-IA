@@ -40,14 +40,7 @@ def enumeration_ask(X, evidence, bn, debug=False):
         Q[xi] = result
         
         if debug:
-            trace.append(f"  P({X}={xi} | {evidence}) = {result:.6f} (sin normalizar)")
-    
-    # Normalizar
-    total = sum(Q.values())
-    for key in Q:
-        Q[key] /= total
-        if debug:
-            trace.append(f"P({X}={key} | {evidence}) = {Q[key]:.6f} (normalizado)")
+            trace.append(f"  P({X}={xi} | {evidence}) = {result:.6f}")
     
     if debug:
         return Q, "\n".join(trace)

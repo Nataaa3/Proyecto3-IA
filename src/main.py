@@ -66,8 +66,8 @@ def run_example_from_class(data_dir="data"):
 
     # Caso de inferencia 4: P(appointment=miss | rain=light, maintenance=no, train=delayed)
     print("\n\nCASO 4: P(appointment=miss | rain=light, maintenance=no, train=delayed)")
-    evidence = {"appointment": "miss", "rain": "light", "maintenance": "no", "train": "delayed"}
-    query, trace = enumeration_ask(evidence, bn, debug=True)
+    evidence = {"rain": "light", "maintenance": "no", "train": "delayed"}
+    query, trace = enumeration_ask("appointment",evidence, bn, debug=True)
 
     print("\nTraza de la inferencia:")
     print(trace)
