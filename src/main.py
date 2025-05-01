@@ -138,18 +138,17 @@ def run_custom_example(data_dir="data_custom"):
     for k, v in query1.items():
         print(f"P({query_var1}={k} | tiempo=lluvioso, transporte=auto) = {v:.4f}")
     
-    # Caso 2
-    print("\n\nCASO 2:")
-    evidence2 = {"llegada": "tarde", "examen": "aprobado"}
-    query_var2 = "estudio"
-    query2, trace2 = enumeration_ask(query_var2, evidence2, bn, debug=True)
+    # Caso de inferencia 2: P(train | appointment=attend)
+    print("\n\nCASO 2: P(train | appointment=attend)")
+    evidence = {"appointment": "attend"}
+    query, trace = enumeration_ask("train", evidence, bn, debug=True)
     
-    print(f"\nTraza de P({query_var2} | llegada=tarde, examen=aprobado):")
-    print(trace2)
+    print("\nTraza de la inferencia:")
+    print(trace)
     
     print("\nResultado:")
-    for k, v in query2.items():
-        print(f"P({query_var2}={k} | llegada=tarde, examen=aprobado) = {v:.4f}")
+    for k, v in query.items():
+        print(f"P(train={k} | appointment=attend) = {v:.4f}")
     
     # Caso 3
     print("\n\nCASO 3:")
@@ -164,17 +163,74 @@ def run_custom_example(data_dir="data_custom"):
     for k, v in query3.items():
         print(f"P({query_var3}={k} | estudio=mucho, descanso=suficiente) = {v:.4f}")
 
+def run_custom_example(data_dir="data_custom"):
+    """
+    Ejecuta el ejemplo personalizado con al menos 6 variables.
+    """
+    print("\n\n===== EJEMPLO PERSONALIZADO =====")
+    
+    if not os.path.exists(data_dir):
+        print(f"ERROR: El directorio {data_dir} no existe.")
+        return
+    
+    try:
+        graph = load_graph(os.path.join(data_dir, "graph.csv"))
+        bn = build_bayesian_network(data_dir)
+    except Exception as e:
+        print(f"ERROR al cargar la red bayesiana: {e}")
+        return
+    
+    print("\nRed personalizada cargada correctamente:")
+    print("Variables:", bn["variables"])
+    print("Dependencias:", bn["parents"])
+    
+    if len(bn["variables"]) < 6:
+        print(f"ADVERTENCIA: La red personalizada tiene {len(bn['variables'])} variables, se requieren al menos 6.")
+    
+    has_three_dependencies = any(len(parents) >= 3 for parents in bn["parents"].values())
+    if not has_three_dependencies:
+        print("ADVERTENCIA: Ninguna variable depende de al menos 3 otras variables.")
+    
+    print("\nVisualizando la red bayesiana personalizada...")
+    draw_graph(graph, "Red Bayesiana - Ejemplo Personalizado")
+
+    print("\n=== CASOS DE PRUEBA PERSONALIZADOS ===")
+    
+    # Caso 1
+    print("\nCASO 1: P(examen | estudio=mucho, motivacion=alta)")
+    evidence1 = {"estudio": "mucho", "motivacion": "alta"}
+    query_var1 = "examen"
+    query1, trace1 = enumeration_ask(query_var1, evidence1, bn, debug=True)
+    print(trace1)
+    for k, v in query1.items():
+        print(f"P({query_var1}={k} | estudio=mucho, motivacion=alta) = {v:.4f}")
+
+    # Caso 2
+    print("\nCASO 2: P(motivacion | examen=aprobado, descanso=poco)")
+    evidence2 = {"examen": "aprobado", "descanso": "poco"}
+    query_var2 = "motivacion"
+    query2, trace2 = enumeration_ask(query_var2, evidence2, bn, debug=True)
+    print(trace2)
+    for k, v in query2.items():
+        print(f"P({query_var2}={k} | examen=aprobado, descanso=poco) = {v:.4f}")
+
+    # Caso 3
+    print("\nCASO 3: P(concentracion | descanso=suficiente, ansiedad=baja)")
+    evidence3 = {"descanso": "suficiente", "ansiedad": "baja"}
+    query_var3 = "concentracion"
+    query3, trace3 = enumeration_ask(query_var3, evidence3, bn, debug=True)
+    print(trace3)
+    for k, v in query3.items():
+        print(f"P({query_var3}={k} | descanso=suficiente, ansiedad=baja) = {v:.4f}")
+
 def main():
     """
-    Función principal que ejecuta los ejemplos.
+    Función principal que ejecuta ambos ejemplos.
     """
     print("Sistema de Inferencia por Enumeración en Redes Bayesianas")
     print("--------------------------------------------------------")
     
-    # Ejecutar el ejemplo de clase
     run_example_from_class()
-    
-    # Ejecutar el ejemplo personalizado
     run_custom_example()
 
 if __name__ == "__main__":
