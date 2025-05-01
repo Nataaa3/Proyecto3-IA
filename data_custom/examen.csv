@@ -1,0 +1,7 @@
+concentracion,ansiedad,aprobado,reprobado
+alta,baja,0.9,0.1
+alta,alta,0.7,0.3
+media,baja,0.6,0.4
+media,alta,0.4,0.6
+baja,baja,0.3,0.7
+baja,alta,0.1,0.9

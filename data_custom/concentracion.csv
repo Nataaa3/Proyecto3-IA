@@ -1,0 +1,13 @@
+estudio,descanso,motivacion,baja,media,alta
+poco,poco,baja,0.8,0.15,0.05
+poco,poco,alta,0.7,0.2,0.1
+poco,suficiente,baja,0.6,0.3,0.1
+poco,suficiente,alta,0.5,0.3,0.2
+medio,poco,baja,0.6,0.3,0.1
+medio,poco,alta,0.5,0.35,0.15
+medio,suficiente,baja,0.4,0.4,0.2
+medio,suficiente,alta,0.3,0.5,0.2
+mucho,poco,baja,0.4,0.4,0.2
+mucho,poco,alta,0.3,0.5,0.2
+mucho,suficiente,baja,0.2,0.5,0.3
+mucho,suficiente,alta,0.1,0.4,0.5
