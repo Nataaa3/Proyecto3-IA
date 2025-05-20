@@ -1,3 +1,7 @@
-train,attend,miss
-on time,0.9,0.1
-delayed,0.6,0.4
+train,dia,attend,miss
+on time,lunes_miercoles,0.8,0.2
+on time,jueves,0.85,0.15
+on time,viernes_domingo,0.9,0.1
+delayed,lunes_miercoles,0.3,0.7
+delayed,jueves,0.4,0.6
+delayed,viernes_domingo,0.5,0.5
